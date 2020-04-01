@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 
-import componentUtils from './utils/componentUtils.js';
+import componentUtils from './utils/componentUtils';
 
-Vue.use(Router)
+Vue.use(Router);
 
 
 window.customElements.define('wc-test', class HelloWorld extends HTMLElement {
@@ -28,7 +28,7 @@ export default new Router({
     {
       path: '/endpoint-agent',
       name: 'endpoint-agent',
-      component: componentUtils.createUpdateTeamPageOnNavigation('/endpoint-agent/export/endpoint-agent-root.js')
+      component: () => componentUtils.getTeamComponent('endpoint-agent', '/export/endpoint-agent-root.js'),
     }
   ]
-})
+});

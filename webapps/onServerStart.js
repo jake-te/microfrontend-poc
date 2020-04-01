@@ -1,37 +1,54 @@
 module.exports = onServerStart;
 
+// This will be configured ahead of time on whatever proxy is used
+const teamNamespaceSet = new Set([
+    'endpoint-agent',
+]);
+
 function onServerStart(app, server) {
     console.log('Custom server hook starting...');
+
+    app.use(function(req, res, next) {
+        console.log('Receiving request:', {
+            method: req.method,
+            url: req.url,
+            headers: req.headers,
+        }, '\n');
+
+        const teamNamespace = getTeamNamespace(req);
+        console.log(teamNamespace);
+        next();
+    });
+
 }
 
+function getTeamNamespace(req) {
+    // TODO: make more robust
+    if (req.headers['X-ThousandEyes-Namespace']) {
+        return req.headers['X-ThousandEyes-Namespace'];
+    }
 
-// // TODO: This is not the long term solution we'll use. We can't simply use original page to know
-    // // which server to hit because
-    // // 1) It will mess up any webapps requests that run on that page
-    // // 2) it's brittle to maintain a list for this in multiple places
-    // // 3) We'll have fragments that one team own within another team's page
-    // // Instead we need to likely prepend XHR urls with teams identifier when serving/building for consumption by others
-    // // (we won't prepend locally)
-    // app.all('*', function(req, res, next) {
-    //     const teamDomainId = getTeamDomainId(req.headers.referer);
-    //     if (req.headers.referer.split('originalUrl === '/test-endpoint') {
-    //         console.log(req);
-    //     }
+    return getNamespaceFromUrl(req.headers.referer);
+}
 
-    //     // if (needToPrependDomainFragment) {
-    //     //     console.log(req);
-    //     //     // res.redirect(req.originalUrl)
-    //     //     console.log('need to prepend')
-    //     // }
-    //     next();
-    // });
+// question, what about component within component?
+// Scenario
+// endpointAgent page
+//   REV component
+// referer - will be endpoint
+// X-ThousandEyes-Namespace
+//  - not able to set for img/css/etc
+//  -
+// Override Fetch - Can we determine what component we're in?
 
+// Namespace is considered first segment of the url
+function getNamespaceFromUrl(urlForNamespace) {
+    const url = new URL(urlForNamespace);
+    const pathParts = url.pathname.split('/');
+    return (pathParts.length > 1) ? pathParts[1] : '';
+}
 
-// function getTeamDomainId(refererUrl) {
-//     const url = new URL(refererUrl);
-//     return url.pathname ? pathname.split('/')[1] : '';
-// }
-
-// function prependTeamDomainId(requestUrl) {
-
-// }
+function getFullUrl(req) {
+    console.log(req.url)
+    return req.protocol + '://' + req.hostname + req.url
+}

@@ -10,17 +10,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
-// Prepend all fetches with endpoint-agents so it can be proxied back to this service
-if (process.env.NODE_ENV === 'production') {
-  axios.interceptors.request.use(config => {
-      return {
-        ...config,
-        url: `/endpoint-agent${config.url}`,
-      };
-  });
-}
 
 export default {
   data: () => ({
@@ -33,7 +22,7 @@ export default {
         });
   },
   methods: {
-    getDataFromEndpointAgentServer: () => axios.get('/test-endpoint').then(response => response.data)//.then(response => response.text()),
+    getDataFromEndpointAgentServer: () => fetch('/test-endpoint').then(response => response.data),
   },
 }
 </script>
