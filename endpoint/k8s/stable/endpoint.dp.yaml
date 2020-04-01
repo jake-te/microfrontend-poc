@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: endpoint
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: endpoint
+  template:
+    metadata:
+      labels:
+        app: endpoint
+    spec:
+      containers:
+      - name: endpoint
+        image: endpoint-service
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 2222

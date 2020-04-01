@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: revenue-svc
+spec:
+  ports:
+  - port: 3333
+    targetPort: 3333
+    protocol: TCP
+    name: http
+  selector:
+    app: revenue

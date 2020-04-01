@@ -1,0 +1,15 @@
+{
+  "name": "microfrontend-poc",
+  "version": "1.0.0",
+  "description": "A proof of concept for how to separate out frontend services by domain such that: - They're decoupled and can be developed independently (single owning team) - They can be deployed independently - Both frontend and backend code for a given domain's lives together (no monolithic, \"god\" server)",
+  "scripts": {
+    "serve.k8s": "node ./scripts/setupMinikube.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:strawlion/microfrontend-poc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {}
+}

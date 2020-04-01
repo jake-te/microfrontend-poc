@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: revenue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: revenue
+  template:
+    metadata:
+      labels:
+        app: revenue
+    spec:
+      containers:
+      - name: revenue
+        image: revenue-service
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 2222

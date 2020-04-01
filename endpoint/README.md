@@ -1,4 +1,4 @@
-# webapps
+# endpoint
 
 ## Project setup
 ```

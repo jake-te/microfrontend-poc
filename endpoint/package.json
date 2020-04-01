@@ -1,27 +1,30 @@
 {
-  "name": "webapps",
+  "name": "endpoint",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "npm run clean && npm run build && node ./dist/server.js",
-    "serve.docker": "npm run build.image && docker run -p 1111:1111 webapps-service",
+    "serve.docker": "npm run build.image && docker run -p 2222:2222 endpoint-service",
     "build": "npm run build.server && npm run build.client",
-    "build.image": "npm run clean && npm run build && docker build . -t webapps-service",
+    "build.image": "npm run clean && npm run build && docker build . -t endpoint-service",
     "build.client": "node buildStaticAssets.js",
     "build.server": "webpack --config webpack.server.config.js",
     "clean": "rimraf ./dist"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "http-proxy-middleware": "^1.0.3",
-    "systemjs": "^6.2.6",
-    "vue": "^2.6.11",
-    "vue-router": "^3.0.1"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.2.3",
     "cookie-parser": "^1.4.5",
+    "cross-env": "^7.0.2",
     "rimraf": "^3.0.2",
     "webpack-cli": "^3.3.11"
+  },
+  "vue": {
+    "css": {
+      "extract": false
+    }
   }
 }

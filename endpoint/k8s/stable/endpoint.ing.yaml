@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: endpoint-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+
+    # TODO: Find a better mechanism for doing this.
+    # Should use rewrite_by_lua_block but ingress nginx already generates this block
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      set_by_lua_block $fake_var {
+
+        local chanceToGoToCanary = tonumber(ngx.var.chanceToGoToCanary) or 0
+
+        local hasValidCanaryCookie = ngx.var.cookie_Canary == 'always' or ngx.var.cookie_Canary == 'never'
+        local shouldReroute = (not hasValidCanaryCookie) or (chanceToGoToCanary == 0 and ngx.var.cookie_Canary == 'always')
+        if shouldReroute then
+
+        local shouldGoToCanary = (math.random() <= chanceToGoToCanary)
+          local canaryValue = shouldGoToCanary and 'always' or 'never'
+
+          -- TODO: Ensure works with different formats of Set-Cookie
+          local setCookieTable = {}
+          if type(ngx.header['Set-Cookie']) == 'string' then
+            setCookieTable = { ngx.header['Set-Cookie'] }
+          elseif type(ngx.header['Set-Cookie']) == 'table' then
+            setCookieTable = ngx.header['Set-Cookie']
+          end
+          table.insert(setCookieTable, 'Canary=' .. canaryValue .. '; Path=/namespace/endpoint; Max-Age=3600;')
+          ngx.header['Set-Cookie'] = setCookieTable
+
+          -- TODO: Test with all formats
+          ngx.req.set_header('Cookie', ((ngx.req.get_headers()['Cookie'] or '') .. 'Canary=' .. canaryValue .. ';'))
+        end
+
+      }
+spec:
+  rules:
+  - host: app.microfrontend
+    http:
+      paths:
+        - path: /namespace/endpoint/?(.*)
+          backend:
+            serviceName: endpoint-svc
+            servicePort: 2222
