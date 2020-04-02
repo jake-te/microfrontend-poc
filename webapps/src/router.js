@@ -28,7 +28,7 @@ export default new Router({
     {
       path: '/endpoint-agent',
       name: 'endpoint-agent',
-      component: () => componentUtils.getTeamComponent('endpoint-agent', '/export/endpoint-agent-root.js'),
+      component: () => componentUtils.getTeamComponent('endpoint-agent/export/endpoint-agent-root.js'),
     }
   ]
 });

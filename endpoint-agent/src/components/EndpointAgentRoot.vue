@@ -22,7 +22,7 @@ export default {
         });
   },
   methods: {
-    getDataFromEndpointAgentServer: () => fetch('/test-endpoint').then(response => response.data),
+    getDataFromEndpointAgentServer: () => fetch('/endpoint-agent/test-endpoint').then(response => response.data),
   },
 }
 </script>

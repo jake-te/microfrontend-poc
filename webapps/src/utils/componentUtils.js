@@ -3,8 +3,8 @@ export default {
 };
 
 // TODO: Better to infer from url, or be explicit?
-function getTeamComponent(teamNamespace, urlToComponent) {
-    // const teamNamespace = getTeamNamespace(urlToComponent); // inferred from url
+function getTeamComponent(urlToComponent) {
+    const teamNamespace = getTeamNamespace(urlToComponent);
     const componentName = getFilenameWithoutExtension(urlToComponent); // inferred from filename (which should always match 1:1)
 
     return fetch(urlToComponent, {
@@ -20,10 +20,10 @@ function getTeamComponent(teamNamespace, urlToComponent) {
 
 // TODO: hacky, use more robust implementation
 // Assumes urls are relative
-// function getTeamNamespace(url) {
-//     const urlSegments = url.split('/');
-//     return urlSegments[0];
-// }
+function getTeamNamespace(url) {
+    const urlSegments = url.split('/');
+    return urlSegments[0];
+}
 
 // TODO: hacky, use more robust implementation
 // Assumes urls are relative
