@@ -6,6 +6,7 @@
     "serve": "npm run build.webcomponents && vue-cli-service serve --inline-vue",
     "build": "npm run build.webcomponents && vue-cli-service build --inline-vue",
     "lint": "vue-cli-service lint",
+    "clean": "rimraf ./public/export ./public/local",
     "build.webcomponents": "npm run build.webcomponents.development && npm run build.webcomponents.production",
     "build.webcomponents.development": "vue-cli-service build --dest ./public/local --mode development --target wc --inline-vue ./src/components/EndpointAgentRoot.vue && rm ./public/local/demo.html",
     "build.webcomponents.production": "vue-cli-service build --dest ./public/export --mode production --target wc --inline-vue ./src/components/EndpointAgentRoot.vue && rm ./public/export/demo.html"
@@ -21,6 +22,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
+    "rimraf": "^3.0.2",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

@@ -2,6 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 
+
+// Adds SystemJS global
+import 'systemjs/dist/system';
+
 import componentUtils from './utils/componentUtils';
 
 Vue.use(Router);
