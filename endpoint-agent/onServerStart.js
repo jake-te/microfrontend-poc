@@ -1,3 +1,5 @@
+const gitUtils = require('./gitUtils');
+
 module.exports = onServerStart;
 
 function onServerStart(app, server) {
@@ -16,4 +18,6 @@ function onServerStart(app, server) {
     app.get('/endpoint-agent/test-endpoint', function (req, res) {
         res.send('You\'re receiving data from the endpoint agent server!');
     });
+
+    app.get('/endpoint-agent/version', () => gitUtils.getCurrentShortGitRevision());
 }

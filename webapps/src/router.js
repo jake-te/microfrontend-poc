@@ -11,14 +11,18 @@ import componentUtils from './utils/componentUtils';
 Vue.use(Router);
 
 
-window.customElements.define('wc-test', class HelloWorld extends HTMLElement {
-  constructor() {
-    super();
-    // Attach a shadow root to the element.
-    let shadowRoot = this.attachShadow({mode: 'open'});
-    shadowRoot.innerHTML = `<p>hello world</p>`;
-  }
-})
+// window.customElements.define('wc-test', class HelloWorld extends HTMLElement {
+//   constructor() {
+//     super();
+//     // Attach a shadow root to the element.
+//     let shadowRoot = this.attachShadow({mode: 'open'});
+//     shadowRoot.innerHTML = `<p>hello world</p>`;
+//   }
+// })
+
+componentUtils.updateImportMappings({
+  'endpoint-agent/view': '/endpoint-agent/endpointAgent.umd.js'
+});
 
 export default new Router({
   mode: 'history',
@@ -32,7 +36,7 @@ export default new Router({
     {
       path: '/endpoint-agent',
       name: 'endpoint-agent',
-      component: () => componentUtils.getTeamComponent('endpoint-agent/export/endpoint-agent-root.js'),
+      component: () => componentUtils.getTeamComponent('endpoint-agent/view'),
     }
   ]
 });

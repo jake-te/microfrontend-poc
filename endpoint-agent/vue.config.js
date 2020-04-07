@@ -5,6 +5,9 @@ module.exports = {
     configureWebpack(config) {
         console.log(config);
     },
+    css: {
+        extract: false,
+    },
     devServer: {
         before: onServerStart,
         port: 2222,
