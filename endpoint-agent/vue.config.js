@@ -2,9 +2,6 @@ const onServerStart = require('./onServerStart.js');
 const path = require('path');
 
 module.exports = {
-    configureWebpack(config) {
-        console.log(config);
-    },
     css: {
         extract: false,
     },
