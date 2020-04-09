@@ -5,7 +5,7 @@ const path = require('path');
 console.log('Starting server...');
 
 const app = express();
-const port = 8080;
+const port = 2222;
 
 app.use(
     express.static(path.join(__dirname, 'public')),

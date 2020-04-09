@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "npm run clean && npm run build && node ./dist/server.js",
-    "serve.docker": "npm run build.image && docker run -P endpoint-service",
+    "serve.docker": "npm run build.image && docker run -p 2222:2222 endpoint-service",
     "build": "npm run build.server && npm run build.client",
     "build.image": "npm run clean && npm run build && docker build . -t endpoint-service",
     "build.client": "node buildStaticAssets.js",
@@ -53,5 +53,15 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "vue": {
+    "css": {
+      "extract": false
+    }
+  },
+  "babel": {
+    "presets": [
+      "@vue/app"
+    ]
+  }
 }
