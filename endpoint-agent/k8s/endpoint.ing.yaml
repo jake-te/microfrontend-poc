@@ -11,4 +11,4 @@ spec:
       paths:
         - backend:
             serviceName: endpoint-svc
-            servicePort: 80
+            servicePort: 2222

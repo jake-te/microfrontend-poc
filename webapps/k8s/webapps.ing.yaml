@@ -11,4 +11,4 @@ spec:
       paths:
         - backend:
             serviceName: webapps-svc
-            servicePort: 80
+            servicePort: 1111

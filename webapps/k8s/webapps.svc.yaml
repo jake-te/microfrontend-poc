@@ -4,7 +4,7 @@ metadata:
   name: webapps-svc
 spec:
   ports:
-  - port: 80
+  - port: 1111
     targetPort: 1111
     protocol: TCP
     name: http

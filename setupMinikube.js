@@ -6,17 +6,16 @@ const childProcess = require('child_process');
 const fs = require('fs');
 const os = require('os');
 
-// Clear out minikube environment
+console.log('Deleting preexisting k8s objects in minikube')
 minikubeKubectl('delete deployments --all');
 minikubeKubectl('delete ingress --all');
 minikubeKubectl('delete svc --all');
 
-// Build each app image in minikube's docker context
+console.log('Building app images in minikube\'s docker context');
 runWithMinikubeDocker('npm --prefix ./webapps run build.image')
 runWithMinikubeDocker('npm --prefix ./endpoint-agent run build.image')
 
-
-// TODO: Generalize this
+console.log('Setting up all k8s objects');
 applyK8sFiles('./endpoint-agent/k8s')
 applyK8sFiles('./webapps/k8s')
 
@@ -26,7 +25,6 @@ function applyK8sFiles(directory) {
     for (const file of files) {
         minikubeKubectl(`apply -f ${directory}/${file}`);
     }
-
 }
 
 // Uses minikube's kubectl

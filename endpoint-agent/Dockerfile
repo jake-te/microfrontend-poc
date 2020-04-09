@@ -1,7 +1,7 @@
 FROM node:latest
 
 
-COPY ./dist/public /app
+COPY ./dist /app
 
 EXPOSE 2222
 

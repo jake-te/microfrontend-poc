@@ -14,6 +14,7 @@ spec:
     spec:
       containers:
       - name: endpoint
-        image: gcr.io/kubernetes-e2e-test-images/echoserver:2.1
+        image: endpoint-service
+        imagePullPolicy: Never
         ports:
         - containerPort: 2222
