@@ -1,9 +1,8 @@
 FROM node:latest
 
 
-COPY ./dist/public /
-COPY ./dist/server.js /
+COPY ./dist/public /app
 
 EXPOSE 2222
 
-CMD ["node", "server.js"]
+CMD ["node", "./app/server.js"]
