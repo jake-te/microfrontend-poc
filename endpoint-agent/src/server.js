@@ -14,9 +14,7 @@ app.use(
 );
 
 
-
-
-app.all((req, resp, next) => {
+app.all('*', (req, resp, next) => {
     console.log('Receiving request', {
         method: req.method,
         url: req.url,
