@@ -1,12 +1,17 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 console.log('Starting server...');
 
 const app = express();
 const port = 8080;
 
-app.use(express.static('public'), express.json(), cors());
+app.use(
+    express.static(path.join(__dirname, 'public')),
+    express.json(),
+    cors()
+);
 
 
 
