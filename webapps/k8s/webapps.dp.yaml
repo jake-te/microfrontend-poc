@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webapps
+  template:
+    metadata:
+      labels:
+        app: webapps
+    spec:
+      containers:
+      - name: webapps
+        image: gcr.io/kubernetes-e2e-test-images/echoserver:2.1
+        ports:
+        - containerPort: 8080

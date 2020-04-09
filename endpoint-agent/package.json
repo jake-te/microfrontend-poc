@@ -3,25 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "npm run build.webcomponents && vue-cli-service serve --inline-vue",
-    "build": "vue-cli-service build --inline-vue && npm run build.webcomponents",
-    "lint": "vue-cli-service lint",
-    "clean": "rimraf ./dist ./public/*.umd.js",
-    "build.webcomponents": "vue-cli-service build --filename endpointAgent --dest ./public --mode development --target lib --formats umd --inline-vue --no-clean ./src/main.js && rm ./public/demo.html"
+    "serve": "npm run clean && npm run build && node ./dist/server.js",
+    "build": "npm run build.server && npm run build.client",
+    "build.image": "npm run clean && npm run build && docker build .",
+    "build.client": "node buildStaticAssets.js",
+    "build.server": "webpack --config webpack.server.config.js",
+    "clean": "rimraf ./dist"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "cors": "^2.8.5",
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@vue/cli": "^4.3.1",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.0",
     "@vue/cli-service": "^4.2.3",
     "babel-eslint": "^10.0.1",
+    "copyfiles": "^2.2.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
+    "express": "^4.17.1",
     "rimraf": "^3.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
   },
   "eslintConfig": {
     "root": true,

@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: webapps-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: \"false\"
+spec:
+  rules:
+  - host: app.microfrontend
+    http:
+      paths:
+        - backend:
+            serviceName: webapps-svc
+            servicePort: 80
