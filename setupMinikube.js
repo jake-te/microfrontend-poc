@@ -2,9 +2,10 @@ const childProcess = require('child_process');
 const fs = require('fs');
 const os = require('os');
 
-console.log('Installing npm dependencies...')
-// executeCommand('npm --prefix ./webapps i')
-// executeCommand('npm --prefix ./endpoint-agent i')
+// TODO: Bugged, get this to work
+// console.log('Installing npm dependencies...')
+// executeCommand('npm --prefix ./webapps install')
+// executeCommand('npm --prefix ./endpoint-agent install')
 
 console.log('Minikube - Enabling ingress addon...')
 executeCommand('minikube addons enable ingress');
