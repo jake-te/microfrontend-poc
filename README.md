@@ -2,7 +2,7 @@
 A proof of concept for how to separate out frontend services by domain such that:
 - They're decoupled and can be developed independently (single owning team)
 - They can be deployed independently
-- Both frontend and backend code for a given domain's lives together (no monolithic, "god" server)
+- Both frontend and backend code for a given domain's lives together
 
 ## Testing the project
 1. Run `npm install` in the `webapps` and `endpoint-agent` directories
@@ -18,3 +18,11 @@ A proof of concept for how to separate out frontend services by domain such that
 3. Run `node setupMinikube.js` with admin privileges
   - This will modify your minikube environment and take a few minutes to complete
 4. Open `http://app.microfrontend` in the browser
+
+
+## TODO
+- Add canary deployment logic (Cookie per domain etc)
+- Update fetch etc calls to change based on build context (point to right host)
+- Create vue component that will override `a` and `script` etc to update relative links to point to correct domains
+- Update UI to be more illustrative of what's happening
+- Add component within team page example

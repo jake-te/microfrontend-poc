@@ -1,21 +1,26 @@
-// Note: Requires
-// - minikube installed
-// - minikube with ingress addon installed
-
 const childProcess = require('child_process');
 const fs = require('fs');
 const os = require('os');
 
-console.log('Deleting preexisting k8s objects in minikube')
+console.log('Installing npm dependencies...')
+// executeCommand('npm --prefix ./webapps i')
+// executeCommand('npm --prefix ./endpoint-agent i')
+
+console.log('Minikube - Enabling ingress addon...')
+executeCommand('minikube addons enable ingress');
+
+// TODO: Use ingress DNS addon?
+
+console.log('Minikube - Deleting preexisting k8s objects...')
 minikubeKubectl('delete deployments --all');
 minikubeKubectl('delete ingress --all');
 minikubeKubectl('delete svc --all');
 
-console.log('Building app images in minikube\'s docker context');
+console.log('Minikube - Building app images...');
 runWithMinikubeDocker('npm --prefix ./webapps run build.image')
 runWithMinikubeDocker('npm --prefix ./endpoint-agent run build.image')
 
-console.log('Setting up all k8s objects');
+console.log('Minikube - Setting up all k8s objects...');
 applyK8sFiles('./endpoint-agent/k8s')
 applyK8sFiles('./webapps/k8s')
 
