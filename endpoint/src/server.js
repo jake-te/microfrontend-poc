@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 
 console.log('Starting server...');
@@ -10,7 +11,8 @@ const port = 2222;
 app.listen(port, () => console.log(`Listening on port: ${port}`));
 
 app.use(
-    cors(),
+    cors({ origin: 'http://app.microfrontend', credentials: true }),
+    cookieParser(),
     express.static(path.join(__dirname, 'public')),
     express.json(),
 );
@@ -21,6 +23,7 @@ app.all('*', (req, resp, next) => {
         method: req.method,
         url: req.url,
         headers: req.headers,
+        cookies: req.cookies,
     }, '\n');
     next();
 });

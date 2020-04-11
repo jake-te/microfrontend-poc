@@ -3,7 +3,7 @@
 export default (url, options) => {
     return fetch(
         getUrlThatPointsToService(url),
-        options
+        options,
     );
 }
 

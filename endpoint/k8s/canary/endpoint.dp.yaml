@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapps
+  name: endpoint-canary
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webapps
+      app: endpoint-canary
   template:
     metadata:
       labels:
-        app: webapps
+        app: endpoint-canary
     spec:
       containers:
-      - name: webapps
-        image: webapps-service
+      - name: endpoint-canary
+        image: endpoint-service
         imagePullPolicy: Never
         ports:
-        - containerPort: 1111
+        - containerPort: 2222

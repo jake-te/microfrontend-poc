@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: endpoint-ingress-canary
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-by-cookie: Canary
+spec:
+  rules:
+  - host: endpoint.app.microfrontend
+    http:
+      paths:
+        - backend:
+            serviceName: endpoint-svc-canary
+            servicePort: 2222
