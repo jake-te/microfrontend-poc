@@ -10,7 +10,7 @@
 </template>
 
 <script>
-
+import fetch from '../fetch';
 export default {
   data: () => ({
     messageFromEndpointAgentServer: null,
@@ -22,7 +22,7 @@ export default {
         });
   },
   methods: {
-    getDataFromEndpointAgentServer: () => fetch('/endpoint-agent/test-endpoint').then(response => response.data),
+    getDataFromEndpointAgentServer: () => fetch('/data').then(response => response.text()),
   },
 }
 </script>

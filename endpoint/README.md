@@ -1,4 +1,4 @@
-# endpoint-agent
+# endpoint
 
 ## Project setup
 ```

@@ -5,24 +5,31 @@ import componentUtils from './utils/componentUtils';
 
 Vue.use(Router);
 
-// TODO: Fetch urls at runtime
-componentUtils.updateImportMappings({
-  '@te/endpoint-agent/view': '/endpoint-agent/endpointAgent.umd.js'
+// TODO: Fix race condition with System.import
+// TODO: Use HTTP/2 Server Push on this
+fetch(`${process.env.VUE_APP_ENDPOINT_URL}/version`)
+.then(response => response.text())
+.then(endpointVersion => {
+    componentUtils.updateImportMappings({
+        '@te/endpoint/view': `${process.env.VUE_APP_ENDPOINT_URL}/${endpointVersion}/static/endpointAgent.umd.js`,
+    });
 });
 
+
+
 export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/endpoint-agent',
-      name: 'endpoint-agent',
-      component: () => componentUtils.getTeamComponent('@te/endpoint-agent/view'),
-    }
-  ]
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/endpoint',
+            name: 'endpoint',
+            component: () => componentUtils.getTeamComponent('@te/endpoint/view'),
+        }
+    ]
 });

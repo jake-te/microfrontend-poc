@@ -5,7 +5,7 @@ const os = require('os');
 // TODO: Bugged, get this to work
 // console.log('Installing npm dependencies...')
 // executeCommand('npm --prefix ./webapps install')
-// executeCommand('npm --prefix ./endpoint-agent install')
+// executeCommand('npm --prefix ./endpoint install')
 
 console.log('Minikube - Enabling ingress addon...')
 executeCommand('minikube addons enable ingress');
@@ -19,10 +19,10 @@ minikubeKubectl('delete svc --all');
 
 console.log('Minikube - Building app images...');
 runWithMinikubeDocker('npm --prefix ./webapps run build.image')
-runWithMinikubeDocker('npm --prefix ./endpoint-agent run build.image')
+runWithMinikubeDocker('npm --prefix ./endpoint run build.image')
 
 console.log('Minikube - Setting up all k8s objects...');
-applyK8sFiles('./endpoint-agent/k8s')
+applyK8sFiles('./endpoint/k8s')
 applyK8sFiles('./webapps/k8s')
 
 
@@ -39,11 +39,13 @@ function minikubeKubectl(command) {
 }
 
 function runWithMinikubeDocker(command) {
-    // `@FOR /f "tokens=*" %i IN ('minikube -p minikube docker-env') DO @%i`
     const setDockerToMinikubeContext = isWindows() ? `& minikube -p minikube docker-env | Invoke-Expression`
                                                    : 'eval $(minikube docker-env)';
 
-    return executeCommand(`${setDockerToMinikubeContext}; ${command}`);
+    const setEnv = isWindows()  ? `$Env:mode="production"`
+                                : 'mode="production"';
+
+    return executeCommand(`${setEnv}; ${setDockerToMinikubeContext}; ${command}`);
 }
 
 function isWindows() {

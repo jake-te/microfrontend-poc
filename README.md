@@ -5,14 +5,14 @@ A proof of concept for how to separate out frontend services by domain such that
 - Both frontend and backend code for a given domain's lives together
 
 ## Testing the project
-1. Run `npm install` in the `webapps` and `endpoint-agent` directories
+1. Run `npm install` in the `webapps` and `endpoint` directories
 2. Run `npm run serve` in the `webapps` directory
-3. Run `npm run serve` in the `endpoint-agent` directory
-4. Navigate to `localhost:1111` for `webapps` and `localhost:2222` for `endpoint-agent`.
-  Observe that the same web component is used in both places, and that fetching data from the `endpoint-agent` server works in both contexts.
+3. Run `npm run serve` in the `endpoint` directory
+4. Navigate to `localhost:1111` for `webapps` and `localhost:2222` for `endpoint`.
+  Observe that the same web component is used in both places, and that fetching data from the `endpoint` server works in both contexts.
 
 ## Setting up Minikube environment
-1. npm install in `.`, `./webapps` and `./endpoint-agent`
+1. npm install in `.`, `./webapps` and `./endpoint`
 2. Set endpoint.microfrontend and app.microfrontend to resolve to minikube ip
   - e.g. Get ip from `minikube ip`, add to /etc/hosts file: `MINIKUBE_IP endpoint.microfrontend app.microfrontend`
 3. Run `node setupMinikube.js` with admin privileges
@@ -26,3 +26,6 @@ A proof of concept for how to separate out frontend services by domain such that
 - Create vue component that will override `a` and `script` etc to update relative links to point to correct domains
 - Update UI to be more illustrative of what's happening
 - Add component within team page example
+- Add import map swapping example
+- Add latest/static asset fetching
+- Add static domain

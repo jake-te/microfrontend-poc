@@ -16,7 +16,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-        __GIT_REVISION_SHORT__: `'${gitUtils.getCurrentShortGitRevision()}'`,
+      'process.env.GIT_REVISION_SHORT': `'${gitUtils.getCurrentShortGitRevision()}'`,
     })
   ]
 };

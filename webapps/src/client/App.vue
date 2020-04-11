@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/endpoint-agent">Endpoint Agent</router-link>
+      <router-link to="/endpoint">Endpoint Agent</router-link>
     </div>
     <router-view/>
   </div>
