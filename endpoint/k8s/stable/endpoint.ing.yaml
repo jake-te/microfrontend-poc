@@ -4,13 +4,15 @@ metadata:
   name: endpoint-ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/configuration-snippet: |
       add_header Set-Cookie "Canary=always; Path=/";
 spec:
   rules:
-  - host: endpoint.app.microfrontend
+  - host: app.microfrontend
     http:
       paths:
-        - backend:
+        - path: /endpoint/?(.*)
+          backend:
             serviceName: endpoint-svc
             servicePort: 2222
