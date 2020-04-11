@@ -5,15 +5,7 @@ import componentUtils from './utils/componentUtils';
 
 Vue.use(Router);
 
-// TODO: Fix race condition with System.import
-// TODO: Use HTTP/2 Server Push on this
-fetch(`${process.env.VUE_APP_ENDPOINT_URL}/version`)
-.then(response => response.text())
-.then(endpointVersion => {
-    componentUtils.updateImportMappings({
-        '@te/endpoint/view': `${process.env.VUE_APP_ENDPOINT_URL}/${endpointVersion}/static/endpointAgent.umd.js`,
-    });
-});
+
 
 
 
@@ -29,7 +21,23 @@ export default new Router({
         {
             path: '/endpoint',
             name: 'endpoint',
-            component: () => componentUtils.getTeamComponent('@te/endpoint/view'),
+            component: async () => componentUtils.getTeamComponent(`${await getTeamStaticUrl('endpoint')}/endpointAgent.umd.js`),
         }
     ]
 });
+
+
+async function getTeamStaticUrl(team) {
+
+    // TODO: make this dynamic
+    const teamToServerUrl = {
+        endpoint: process.env.VUE_APP_ENDPOINT_URL,
+    };
+
+    const urlOverride = localStorage.getItem(`@te/${team}/url`);
+    const serverUrl = urlOverride || teamToServerUrl[team];
+
+    // TODO: Use HTTP/2 server push on this
+    const version = await fetch(`${serverUrl}/version`).then(response => response.text());
+    return `${serverUrl}/${version}/static`;
+}

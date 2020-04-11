@@ -22,16 +22,8 @@ runWithMinikubeDocker('npm --prefix ./webapps run build.image')
 runWithMinikubeDocker('npm --prefix ./endpoint run build.image')
 
 console.log('Minikube - Setting up all k8s objects...');
-applyK8sFiles('./endpoint/k8s')
-applyK8sFiles('./webapps/k8s')
-
-
-function applyK8sFiles(directory) {
-    const files = fs.readdirSync(directory);
-    for (const file of files) {
-        minikubeKubectl(`apply -f ${directory}/${file}`);
-    }
-}
+minikubeKubectl(`apply -f ./endpoint/k8s -R`);
+minikubeKubectl(`apply -f ./webapps/k8s -R`)
 
 // Uses minikube's kubectl
 function minikubeKubectl(command) {

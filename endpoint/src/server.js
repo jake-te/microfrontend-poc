@@ -31,4 +31,6 @@ app.get('/data', function (req, res) {
 });
 
 
-app.get('/version', (req, res) => res.send(process.env.GIT_REVISION_SHORT));
+app.get('/version', (req, res) => {
+    res.send(process.env.GIT_REVISION_SHORT)
+});

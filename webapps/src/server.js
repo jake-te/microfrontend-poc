@@ -8,6 +8,21 @@ const port = 1111;
 
 app.listen(port, () => console.log(`Listening on port: ${port}`));
 
+
+app.get('/:page', (req, res) => {
+    // TODO: Don't hardcode, generate valid list from ssot
+    const validPageSet = new Set(['endpoint']);
+    if (!validPageSet.has(req.params.page)) {
+        res.sendStatus(404);
+    }
+    else {
+        res
+        // TODO: Finish HTTP/2 push implementation
+        // .header('Link', '<http://endpoint.app.microfrontend/version>; rel=preload;')
+        .sendFile('./public/index.html', { root: __dirname });
+    }
+});
+
 app.use(
     express.static(path.join(__dirname, 'public')),
     express.json(),

@@ -3,10 +3,10 @@ kind: Ingress
 metadata:
   name: endpoint-ingress
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: \"false\"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - host: endpoint.microfrontend
+  - host: endpoint.app.microfrontend
     http:
       paths:
         - backend:
