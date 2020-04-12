@@ -31,3 +31,4 @@ A proof of concept for how to separate out frontend services by domain such that
 - Add import map swapping example
 - Add static domain
 - Define build process for pulling in team names etc. e.g. hardcoded page endpoints
+- TODO: How can we prevent teams from deploying invalid ingress rules/breaking things? These should all be owned by webapps or auto-generated

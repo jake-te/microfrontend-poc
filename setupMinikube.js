@@ -61,5 +61,13 @@ function isWindows() {
 
 async function executeCommand(command) {
     const options = isWindows() ? { shell: 'powershell' } : undefined;
-    return new Promise(resolve => childProcess.exec(command, options, resolve));
+    return new Promise((resolve, reject) => childProcess.exec(command, options, (error, stdin, stderr) => {
+        if (error) {
+            reject(error);
+        }
+        else {
+            console.log(stdin);
+            resolve(stdin);
+        }
+    }));
 }

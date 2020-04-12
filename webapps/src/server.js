@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 console.log('Starting server...');
 
@@ -24,7 +25,10 @@ app.get('/:page', (req, res) => {
     }
 });
 
+// console.log(process.env.VUE_APP_ENDPOINT_URL);
+
 app.use(
+    // createProxyMiddleware('/namespace/endpoint', { target: 'http://app.local.microfrontend:2222' }),
     cookieParser(),
     express.static(path.join(__dirname, 'public')),
     express.json(),

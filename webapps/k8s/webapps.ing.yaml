@@ -13,7 +13,3 @@ spec:
         - backend:
             serviceName: webapps-svc
             servicePort: 1111
-        - path: /endpoint
-          backend:
-            serviceName: webapps-svc
-            servicePort: 1111

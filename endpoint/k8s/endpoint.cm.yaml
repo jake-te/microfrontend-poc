@@ -1,0 +1,15 @@
+
+apiVersion: v1
+data:
+    location-snippet: |
+    access_by_lua_block {
+      ngx.header["X-My-Header"] = 'blah blah'
+      ngx.req.set_header("Foo", "Fa")
+    }
+kind: ConfigMap
+metadata:
+  name: nginx-configuration
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx

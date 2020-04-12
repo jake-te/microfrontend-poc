@@ -11,7 +11,7 @@ const port = 2222;
 app.listen(port, () => console.log(`Listening on port: ${port}`));
 
 app.use(
-    cors({ origin: 'http://app.microfrontend', credentials: true }),
+    cors({ origin: '*', credentials: true }),
     cookieParser(),
     express.static(path.join(__dirname, 'public')),
     express.json(),

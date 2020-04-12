@@ -11,7 +11,7 @@ export default (url, options) => {
 // Not a robust implementation
 function getUrlThatPointsToService(url) {
     return isValidURL(url)  ? url
-                            : new URL(url, process.env.VUE_APP_URL);
+                            : `${process.env.VUE_APP_URL_PREFIX}/${url}`;
 }
 
 function isValidURL(url) {

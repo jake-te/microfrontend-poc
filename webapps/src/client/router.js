@@ -28,13 +28,17 @@ export default new Router({
 async function getTeamStaticUrl(team) {
 
     // TODO: make this dynamic
-    const teamToServerUrl = {
-        endpoint: process.env.VUE_APP_ENDPOINT_URL,
-    };
+    // const teamToServerUrl = {
+    //     endpoint: process.env.VUE_APP_ENDPOINT_URL,
+    // };
 
-    const urlOverride = localStorage.getItem(`@te/${team}/url`);
-    const serverUrl = urlOverride || teamToServerUrl[team];
+    // TODO: Use url based on prod, but CORS for local dev?
+    // TODO: How to override with url based version?
+    // const urlOverride = localStorage.getItem(`@te/${team}/url`);
+    // const serverUrl = urlOverride || teamToServerUrl[team];
 
+    // /namespace/endpoint
+    const serverUrl = `/namespace/${team}`;
     // TODO: Use HTTP/2 server push on this
     const version = await fetch(`${serverUrl}/version`).then(response => response.text());
     return `${serverUrl}/${version}/static`;

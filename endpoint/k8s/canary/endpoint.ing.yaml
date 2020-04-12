@@ -7,9 +7,10 @@ metadata:
     nginx.ingress.kubernetes.io/canary-by-cookie: Canary
 spec:
   rules:
-  - host: endpoint.app.microfrontend
+  - host: app.microfrontend
     http:
       paths:
-        - backend:
+        - path: /namespace/endpoint/?(.*)
+          backend:
             serviceName: endpoint-svc-canary
             servicePort: 2222
